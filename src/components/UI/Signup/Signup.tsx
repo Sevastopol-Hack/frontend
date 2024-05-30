@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import RoutePaths from "../../../router/Routes";
+import Link from "../Link/Link";
 
 interface GetWalletProps {
   className?: string;
@@ -10,20 +11,20 @@ const Signup: FC<GetWalletProps> = ({ className }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex gap-10">
-      <button
-        className={`btn btn-outline ${className}`}
+    <div className={`${className} flex justify-center items-center`}>
+      <Link
+        className="flex flex-row mx-5"
         onClick={() => navigate(RoutePaths.LOGIN)}
       >
-        Войти
-      </button>
+        <p className="mr-1">Войти</p>
+      </Link>
 
-      <button
-        className={`btn btn-outline ${className}`}
+      <Link
+        className="flex flex-row mx-5"
         onClick={() => navigate(RoutePaths.SIGNUP)}
       >
-        Регистрация
-      </button>
+        <p className="mr-1">Регистрация</p>
+      </Link>
     </div>
   );
 };

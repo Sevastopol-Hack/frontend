@@ -205,13 +205,13 @@ export const RegistrationForm = () => {
             containerProps={{ className: "-ml-2.5" }}
           />
 
-          <Button className="mt-6" fullWidth onClick={() => {}}>
+          <Button className="mt-6 bg-[#13ADE7]" fullWidth onClick={() => {}}>
             Зарегистрироваться
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Уже есть аккаунт? &nbsp;
             <a
-              className="font-medium text-gray-900 cursor-pointer"
+              className="font-medium text-[#A5B4C4] cursor-pointer"
               onClick={() => navigate(RoutePaths.LOGIN)}
             >
               Войти
@@ -351,13 +351,13 @@ export const RegistrationLEForm = () => {
             containerProps={{ className: "-ml-2.5" }}
           />
 
-          <Button className="mt-6" fullWidth onClick={() => {}}>
+          <Button className="mt-6 bg-[#A5B4C4]" fullWidth onClick={() => {}}>
             Зарегистрироваться
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Уже есть аккаунт? &nbsp;
             <a
-              className="font-medium text-gray-900 cursor-pointer"
+              className="font-medium text-[#13ADE7]cursor-pointer"
               onClick={() => navigate(RoutePaths.LOGIN)}
             >
               Войти

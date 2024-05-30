@@ -22,6 +22,7 @@ export const DatePicker: FC<DatePickerProps> = ({ setExternalDate }) => {
       <Popover placement="bottom">
         <PopoverHandler>
           <Input
+            crossOrigin={""}
             onChange={() => null}
             value={date ? format(date, "PPP", { locale: ru }) : ""}
           />

@@ -60,13 +60,13 @@ export const LoginForm = () => {
             />
           </div>
 
-          <Button className="mt-6" fullWidth onClick={() => {}}>
+          <Button className="mt-6 bg-[#13ADE7]" fullWidth onClick={() => {}}>
             Войти
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Нет аккаунта? &nbsp;
             <a
-              className="font-medium text-gray-900 cursor-pointer"
+              className="font-medium text-[#A5B4C4] cursor-pointer"
               onClick={() => navigate(RoutePaths.SIGNUP)}
             >
               Зарегистрироваться
@@ -117,13 +117,13 @@ export const LoginLEForm = () => {
             />
           </div>
 
-          <Button className="mt-6" fullWidth onClick={() => {}}>
+          <Button className="mt-6 bg-[#13ADE7]" fullWidth onClick={() => {}}>
             Войти
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Нет аккаунта? &nbsp;
             <a
-              className="font-medium text-gray-900 cursor-pointer"
+              className="font-medium text-[#A5B4C4] cursor-pointer"
               onClick={() => navigate(RoutePaths.SIGNUP)}
             >
               Зарегистрироваться
