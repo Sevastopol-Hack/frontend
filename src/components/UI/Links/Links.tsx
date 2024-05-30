@@ -14,7 +14,24 @@ interface LinkInfo {
 const Links: FC<LinksProps> = ({ className }) => {
   const navigate = useNavigate();
 
-  const LINKS: LinkInfo[] = [];
+  const LINKS: LinkInfo[] = [
+    {
+      title: "Инструкция",
+      href: "/",
+    },
+    {
+      title: "О нас",
+      href: "/",
+    },
+    {
+      title: "Контакты",
+      href: "/",
+    },
+    {
+      title: "Профиль",
+      href: "/",
+    },
+  ];
 
   return (
     <div className={`${className}`}>

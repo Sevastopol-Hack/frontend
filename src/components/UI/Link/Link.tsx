@@ -11,7 +11,7 @@ const Link: FC<LinkProps> = ({ className, style, children, ...rest }) => {
   return (
     <a
       style={style}
-      className={`link link-hover ${className} text-[#13ADE7]`}
+      className={`link link-hover ${className} text-[#13ADE7] whitespace-nowrap`}
       {...rest}
     >
       {children}

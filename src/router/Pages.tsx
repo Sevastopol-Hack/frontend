@@ -6,10 +6,11 @@ import { multiLazy } from "../utils/multiLazy";
 import RoutePaths from "./Routes";
 
 const AppRouter = () => {
-  const [HomePage, SignupPage, LoginPage] = multiLazy([
+  const [HomePage, SignupPage, LoginPage, CreatePage] = multiLazy([
     () => import("../pages/HomePage"),
     () => import("../pages/SignupPage"),
     () => import("../pages/LoginPage"),
+    () => import("../pages/CreatePage"),
   ]);
 
   return (
@@ -28,6 +29,7 @@ const AppRouter = () => {
           <Route path={RoutePaths.HOME} element={<HomePage />} />
           <Route path={RoutePaths.SIGNUP} element={<SignupPage />} />
           <Route path={RoutePaths.LOGIN} element={<LoginPage />} />
+          <Route path={RoutePaths.CREATE} element={<CreatePage />} />
         </Route>
       </Routes>
     </Suspense>

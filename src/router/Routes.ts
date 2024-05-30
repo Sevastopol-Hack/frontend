@@ -1,7 +1,8 @@
 enum RoutePaths {
-	HOME = '/',
-	SIGNUP = '/signup',
-	LOGIN = '/login'
+  HOME = "/",
+  SIGNUP = "/signup",
+  LOGIN = "/login",
+  CREATE = "/create",
 }
 
-export default RoutePaths
+export default RoutePaths;
