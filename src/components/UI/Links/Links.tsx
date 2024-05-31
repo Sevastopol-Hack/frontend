@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import Link from "../Link/Link";
+import RoutePaths from "../../../router/Routes";
 
 interface LinksProps {
   className?: string;
@@ -21,7 +22,7 @@ const Links: FC<LinksProps> = ({ className }) => {
     },
     {
       title: "Вакансии",
-      href: "/",
+      href: RoutePaths.VACANCIES,
     },
     {
       title: "Резюме",
