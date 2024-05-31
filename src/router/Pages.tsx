@@ -13,6 +13,7 @@ const AppRouter = () => {
     EditResumePage,
     ResumePage,
     VacanciesPage,
+    CreateResumePage,
   ] = multiLazy([
     () => import("../pages/HomePage"),
     () => import("../pages/SignupPage"),
@@ -20,6 +21,7 @@ const AppRouter = () => {
     () => import("../pages/EditResumePage"),
     () => import("../pages/ResumePage"),
     () => import("../pages/VacanciesPage"),
+    () => import("../pages/CreateResumePage"),
   ]);
 
   return (
@@ -41,6 +43,10 @@ const AppRouter = () => {
           <Route path={RoutePaths.EDIT_RESUME} element={<EditResumePage />} />
           <Route path={RoutePaths.RESUME} element={<ResumePage />} />
           <Route path={RoutePaths.VACANCIES} element={<VacanciesPage />} />
+          <Route
+            path={RoutePaths.CREATE_RESUME}
+            element={<CreateResumePage />}
+          />
         </Route>
       </Routes>
     </Suspense>
