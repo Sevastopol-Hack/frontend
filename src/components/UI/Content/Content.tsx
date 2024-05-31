@@ -66,8 +66,15 @@ const Content: FC = () => {
             >
               {resume.fio}
             </Link>,
+            <a
+              className={`link link-hover visited:text-[#A5B4C4] text-[#13ADE7] whitespace-nowrap`}
+              target="_blank"
+              href={resume.filename}
+            >
+              скачать
+            </a>,
           ])}
-          headers={["Номер", "ФИО"]}
+          headers={["Номер", "ФИО", "Резюме"]}
         />
       </InfiniteScroll>
     </div>
