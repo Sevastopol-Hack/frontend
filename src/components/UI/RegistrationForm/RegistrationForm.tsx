@@ -1,46 +1,30 @@
 import {
   Button,
   Card,
-  Checkbox,
   Typography,
   Menu,
   MenuHandler,
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
-import { DatePicker } from "../DatePicker/DatePicker";
 import { useState } from "react";
 import RoutePaths from "../../../router/Routes";
 import { useNavigate } from "react-router-dom";
 import LoginInput from "./LoginInput";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
-
-type Role = "recruiter" | "hiring_manager" | "resource_manager";
-interface SignupRequest {
-  name: string;
-  surname: string;
-  phone: string;
-  role: Role;
-  date_of_birth: string;
-  email: string;
-  password: string;
-  region: string;
-}
+import UserService, { Role, SignupRequest } from "../../../API/UserService";
+import { useSelf } from "../../../states/self";
 
 export const RegistrationForm = () => {
+  const { setUser } = useSelf();
   const navigate = useNavigate();
-
-  const [checked, setChecked] = useState<boolean>(false);
 
   const [data, setData] = useState<SignupRequest>({
     name: "",
     surname: "",
-    region: "",
     role: "recruiter",
-    date_of_birth: "",
-    email: "",
     password: "",
-    phone: "",
+    username: "",
   });
 
   const roles = {
@@ -116,20 +100,13 @@ export const RegistrationForm = () => {
             </Menu>
 
             <LoginInput
-              type="tel"
-              description="Номер телефона:"
+              description="Имя пользователя:"
               onChange={(e) =>
                 setData((prev) => ({
                   ...prev,
-                  phone: "+7" + e.target.value,
+                  username: e.target.value,
                 }))
               }
-              template={
-                <div className="flex rounded-md h-10 items-center gap-2 border-blue-gray-200 bg-blue-gray-500/10 border-solid rounded-r-none border border-r-0 pl-3">
-                  <span className="flex items-center pr-5">+7</span>
-                </div>
-              }
-              className="rounded-l-none"
             />
 
             <LoginInput
@@ -152,33 +129,18 @@ export const RegistrationForm = () => {
             />
           </div>
 
-          <Checkbox
-            crossOrigin={""}
-            onChange={(e) => setChecked(e.target.checked)}
-            label={
-              <Typography
-                variant="small"
-                color="gray"
-                className="flex items-center font-normal"
-              >
-                <span>
-                  Я согласен с &nbsp;
-                  <span
-                    className="font-medium transition-colors text-tg-accent hover:text-gray-900"
-                    onClick={(e) => {
-                      window.open("/eula.pdf", "_blank");
-                      e.preventDefault();
-                    }}
-                  >
-                    Условиями обработки персональных данных
-                  </span>
-                </span>
-              </Typography>
-            }
-            containerProps={{ className: "-ml-2.5" }}
-          />
-
-          <Button className="mt-6 bg-[#13ADE7]" fullWidth onClick={() => {}}>
+          <Button
+            className="mt-6 bg-[#13ADE7]"
+            fullWidth
+            onClick={() => {
+              UserService.signup(data)
+                .catch()
+                .then(() => {
+                  UserService.info().catch().then(setUser);
+                  navigate(RoutePaths.HOME);
+                });
+            }}
+          >
             Зарегистрироваться
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">

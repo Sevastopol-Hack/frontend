@@ -3,8 +3,11 @@ import Links from "../Links/Links";
 import Logo from "../Logo/Logo";
 import Signup from "../Signup/Signup";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { useSelf } from "../../../states/self";
 
 const Header: FC = () => {
+  const { user } = useSelf();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -37,8 +40,11 @@ const Header: FC = () => {
           isMenuOpen ? "block" : "hidden"
         } sm:flex-col md:flex-row lg:flex-row xl:flex-row`}
       >
-        <Links className="sm:flex md:flex lg:flex xl:flex justify-center items-end lg:items-center sm:flex-col md:flex-row lg:flex-row xl:flex-row" />
-        <Signup />
+        {user ? (
+          <Links className="sm:flex md:flex lg:flex xl:flex justify-center items-end lg:items-center sm:flex-col md:flex-row lg:flex-row xl:flex-row" />
+        ) : (
+          <Signup />
+        )}
       </div>
     </div>
   );

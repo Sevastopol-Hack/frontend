@@ -3,18 +3,16 @@ import { useNavigate } from "react-router-dom";
 import RoutePaths from "../../../router/Routes";
 import { useState } from "react";
 import LoginInput from "./LoginInput";
-
-interface LoginRequest {
-  password: string;
-  phone: string;
-}
+import UserService, { LoginRequest } from "../../../API/UserService";
+import { useSelf } from "../../../states/self";
 
 export const LoginForm = () => {
+  const { setUser } = useSelf();
   const navigate = useNavigate();
 
   const [data, setData] = useState<LoginRequest>({
     password: "",
-    phone: "",
+    username: "",
   });
 
   return (
@@ -26,20 +24,13 @@ export const LoginForm = () => {
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-1 flex flex-col gap-6">
             <LoginInput
-              type="tel"
-              description="Номер телефона:"
+              description="Имя пользователя:"
               onChange={(e) =>
                 setData((prev) => ({
                   ...prev,
-                  phone: "+7" + e.target.value,
+                  username: e.target.value,
                 }))
               }
-              template={
-                <div className="flex rounded-md h-10 items-center gap-2 border-blue-gray-200 bg-blue-gray-500/10 border-solid rounded-r-none border border-r-0 pl-3">
-                  <span className="flex items-center pr-5">+7</span>
-                </div>
-              }
-              className="rounded-l-none"
             />
 
             <LoginInput
@@ -55,7 +46,18 @@ export const LoginForm = () => {
             />
           </div>
 
-          <Button className="mt-6 bg-[#13ADE7]" fullWidth onClick={() => {}}>
+          <Button
+            className="mt-6 bg-[#13ADE7]"
+            fullWidth
+            onClick={() => {
+              UserService.login(data)
+                .catch()
+                .then(() => {
+                  UserService.info().catch().then(setUser);
+                  navigate(RoutePaths.HOME);
+                });
+            }}
+          >
             Войти
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">

@@ -6,7 +6,8 @@ export const FileDialog: FC<{
   multiple?: boolean;
   className?: string;
   inputClassName?: string;
-}> = ({ label, accept, multiple, className, inputClassName }) => {
+  onChange?: (files: FileList | null) => void;
+}> = ({ label, accept, multiple, className, inputClassName, onChange }) => {
   const id = new Date().valueOf().toString();
 
   return (
@@ -20,6 +21,9 @@ export const FileDialog: FC<{
         id={id}
         multiple={multiple}
         type="file"
+        onChange={(e) => {
+          onChange && onChange(e.target.files);
+        }}
       ></input>
     </div>
   );

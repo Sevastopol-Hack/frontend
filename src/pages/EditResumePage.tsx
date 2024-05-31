@@ -1,26 +1,20 @@
 import { useState } from "react";
 import { Resume, ResumeProps } from "../components/UI/Resume/Resume";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ResumeEditor } from "../components/UI/Resume/ResumeEditor";
 import { Button } from "@material-tailwind/react";
 
 const CreatePage = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [info, setInfo] = useState<ResumeProps>({
-    fio: "Тестов Тест Тестович",
-    age: 29,
-    exp: 37,
-    email: "example@gmail.com",
-    stack: ["HTML5", "CSS3", "JS", "JavaScript/JQuery"],
-    jobs: [
-      {
-        name: "SkyEnglish",
-        post: "frontend разработчик",
-        from: 1473235200,
-        to: 1562489600,
-      },
-    ],
+    age: 0,
+    email: "",
+    exp: 0,
+    fio: "",
+    jobs: [],
+    stack: [],
   });
 
   return (
