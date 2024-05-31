@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import Link from "../Link/Link";
+import RoutePaths from "../../../router/Routes";
 
 interface LinksProps {
   className?: string;
@@ -14,7 +15,20 @@ interface LinkInfo {
 const Links: FC<LinksProps> = ({ className }) => {
   const navigate = useNavigate();
 
-  const LINKS: LinkInfo[] = [];
+  const LINKS: LinkInfo[] = [
+    {
+      title: "Инструкция",
+      href: "/",
+    },
+    {
+      title: "Вакансии",
+      href: RoutePaths.VACANCIES,
+    },
+    {
+      title: "Резюме",
+      href: "/",
+    },
+  ];
 
   return (
     <div className={`${className}`}>

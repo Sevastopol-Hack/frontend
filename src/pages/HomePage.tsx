@@ -1,11 +1,11 @@
-import Content from '../components/UI/Content/Content'
+import Content from "../components/UI/Content/Content";
 
 const HomePage = () => {
-	return (
-		<>
-			<Content />
-		</>
-	)
-}
+  return (
+    <>
+      <Content />
+    </>
+  );
+};
 
-export default HomePage
+export default HomePage;
