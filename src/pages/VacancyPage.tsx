@@ -63,21 +63,25 @@ const VacancyPage = () => {
         Кандидаты
       </Typography>
       <Table
-        items={resumes.map((resume, index) => [
-          <div className="flex flex-row gap-1.5">
-            <span>{index + 1}</span>
-          </div>,
-          <Link
-            className={`link link-hover visited:text-[#A5B4C4] text-[#13ADE7] whitespace-nowrap`}
-            target="_blank"
-            to={generatePath(RoutePaths.RESUME, {
-              id: resume._id,
-            })}
-          >
-            {resume.fio}
-          </Link>,
-          resume.percent,
-        ])}
+        items={resumes.map(({ percent, ...resume }, index) => {
+          const color =
+            percent <= 50 ? "#A5B4C4" : percent <= 75 ? "#404040" : "#05AAE6";
+          return [
+            <div className="flex flex-row gap-1.5">
+              <span>{index + 1}</span>
+            </div>,
+            <Link
+              className={`link link-hover visited:text-[#A5B4C4] text-[#13ADE7] whitespace-nowrap`}
+              target="_blank"
+              to={generatePath(RoutePaths.RESUME, {
+                id: resume._id,
+              })}
+            >
+              {resume.fio}
+            </Link>,
+            <span className={`text-[${color}]`}>{percent}</span>,
+          ];
+        })}
         headers={["Номер", "ФИО", "Баллы"]}
         className="max-w-[600px] mt-2.5"
       />
