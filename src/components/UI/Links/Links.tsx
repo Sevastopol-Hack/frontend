@@ -20,15 +20,11 @@ const Links: FC<LinksProps> = ({ className }) => {
       href: "/",
     },
     {
-      title: "О нас",
+      title: "Вакансии",
       href: "/",
     },
     {
-      title: "Контакты",
-      href: "/",
-    },
-    {
-      title: "Профиль",
+      title: "Резюме",
       href: "/",
     },
   ];

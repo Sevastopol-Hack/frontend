@@ -3,4 +3,6 @@
     --month-input-font-size: 16px;
     margin: 0;
     padding: 2px 10px;
+    width: fit-content !important;
+    gap: 1em;
 }

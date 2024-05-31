@@ -2,7 +2,8 @@ enum RoutePaths {
   HOME = "/",
   SIGNUP = "/signup",
   LOGIN = "/login",
-  CREATE = "/create",
+  EDIT_RESUME = "/resume/edit",
+  RESUME = "/resume",
 }
 
 export default RoutePaths;

@@ -14,7 +14,7 @@ const Content: FC = () => {
         <Button
           className="bg-[#13ADE7] px-10 -mb-5 md:mb-0 lg:mb-0 xl:mb-0"
           onClick={() => {
-            navigate(RoutePaths.CREATE);
+            navigate(RoutePaths.EDIT_RESUME);
           }}
         >
           Создать

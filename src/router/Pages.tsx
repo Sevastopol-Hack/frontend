@@ -6,12 +6,14 @@ import { multiLazy } from "../utils/multiLazy";
 import RoutePaths from "./Routes";
 
 const AppRouter = () => {
-  const [HomePage, SignupPage, LoginPage, CreatePage] = multiLazy([
-    () => import("../pages/HomePage"),
-    () => import("../pages/SignupPage"),
-    () => import("../pages/LoginPage"),
-    () => import("../pages/CreatePage"),
-  ]);
+  const [HomePage, SignupPage, LoginPage, EditResumePage, ResumePage] =
+    multiLazy([
+      () => import("../pages/HomePage"),
+      () => import("../pages/SignupPage"),
+      () => import("../pages/LoginPage"),
+      () => import("../pages/EditResumePage"),
+      () => import("../pages/ResumePage"),
+    ]);
 
   return (
     <Suspense fallback={<></>}>
@@ -29,7 +31,8 @@ const AppRouter = () => {
           <Route path={RoutePaths.HOME} element={<HomePage />} />
           <Route path={RoutePaths.SIGNUP} element={<SignupPage />} />
           <Route path={RoutePaths.LOGIN} element={<LoginPage />} />
-          <Route path={RoutePaths.CREATE} element={<CreatePage />} />
+          <Route path={RoutePaths.EDIT_RESUME} element={<EditResumePage />} />
+          <Route path={RoutePaths.RESUME} element={<ResumePage />} />
         </Route>
       </Routes>
     </Suspense>
