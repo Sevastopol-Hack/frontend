@@ -1,26 +1,25 @@
 import { Button, Spinner, Typography } from "@material-tailwind/react";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import VacanciesService, {
+  Vacancy as VacancyModel,
+} from "../API/VacanciesService";
+import { useNavigate } from "react-router-dom";
+import RoutePaths from "../router/Routes";
 
-interface VacancyProps {
-  name: string;
-  stack: string[];
-  active?: boolean;
-}
-
-const Vacancy: FC<VacancyProps> = ({ name, stack, active }) => {
+const Vacancy: FC<VacancyModel> = ({ title, stack, is_close }) => {
   return (
     <div
       className={`bg-[${
-        active ? "#13ADE7" : "#A5B4C4"
+        !is_close ? "#13ADE7" : "#A5B4C4"
       }] rounded-xl relative cursor-pointer hover:scale-[1.025] transition-[.5s] max-w-[500px] m-2.5`}
     >
       <div>
-        <img src={active ? "/icons/layers.svg" : "/icons/snowflake.svg"} />
+        <img src={!is_close ? "/icons/layers.svg" : "/icons/snowflake.svg"} />
         <div className="absolute top-0 w-full h-full">
           <div className="p-5 text-white">
             <Typography variant="h4" className="mb-0.5">
-              {name}
+              {title}
             </Typography>
             <span className="break-words text-ellipsis">
               {stack.join(", ")}
@@ -33,23 +32,24 @@ const Vacancy: FC<VacancyProps> = ({ name, stack, active }) => {
 };
 
 const VacanciesPage = () => {
-  const [state, setState] = useState([
-    {
-      name: "Java Developer",
-      stack: ["HTML", "CSS", "JAVA", "JS"],
-      active: true,
-    },
-  ]);
+  const navigate = useNavigate();
+  const [resumes, setResumes] = useState<VacancyModel[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
-  const fetchMoreData = () => {
-    setState(
-      state.concat({
-        name: "Java Developer",
-        stack: ["HTML", "CSS", "JAVA", "JS"],
-        active: true,
-      })
-    );
+  const fetchMoreData = async () => {
+    const data = await VacanciesService.search({
+      limit: 10,
+      skip: resumes.length,
+      query: "",
+    });
+
+    setHasMore(data.length === 10);
+    setResumes(resumes.concat(data));
   };
+
+  useEffect(() => {
+    fetchMoreData();
+  }, []);
 
   return (
     <div className="flex flex-col justify-left items-left mx-10">
@@ -58,7 +58,9 @@ const VacanciesPage = () => {
       <div className="flex justify-left items-center gap-10 flex-row mt-6">
         <Button
           className="bg-[#13ADE7] px-10 -mb-5 md:mb-0 lg:mb-0 xl:mb-0"
-          onClick={() => {}}
+          onClick={() => {
+            window.open(RoutePaths.CREATE_VACANCY, "_blank");
+          }}
         >
           Создать
         </Button>
@@ -67,14 +69,14 @@ const VacanciesPage = () => {
       <p className="text-lg mt-5">Список вакансий</p>
       <hr className="border border-blue-gray-100 mt-2.5" />
       <InfiniteScroll
-        dataLength={state.length}
+        dataLength={resumes.length}
         next={fetchMoreData}
-        hasMore={true}
+        hasMore={hasMore}
         loader={<Spinner className="w-12 h-12 m-2.5 self-center" />}
         className="!overflow-y-clip flex flex-col"
       >
         <div className="grid gap-5 mt-2.5 grid-cols-[repeat(auto-fit,minmax(300px,400px))]">
-          {state.map((i, index) => (
+          {resumes.map((i, index) => (
             <Vacancy {...i} key={index} />
           ))}
         </div>
