@@ -74,7 +74,16 @@ export default class ResumesService {
     experience_to: number;
   }): Promise<Resume[]> {
     const response = await axios.post(this.API + `/resume/search`, query);
-    return response.data.result;
+    let data: Resume[] = response.data.result;
+    data = await Promise.all(
+      data.map(async (resume) => {
+        return {
+          ...resume,
+          filename: await this.file(resume.filename),
+        };
+      })
+    );
+    return data;
   }
 
   public static async match(id: string): Promise<CompetenceProps[]> {
