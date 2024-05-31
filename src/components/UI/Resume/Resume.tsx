@@ -20,6 +20,7 @@ export interface ResumeProps {
   fio: string;
   age: number;
   exp: number;
+  email: string;
   stack: string[];
   jobs: {
     name: string;
@@ -71,7 +72,7 @@ export const Resume: FC<
   ResumeProps & {
     buttons?: React.ReactNode;
   }
-> = ({ fio, age, exp, jobs, stack, buttons }) => {
+> = ({ fio, age, exp, jobs, stack, buttons, email }) => {
   const [options, setOptions] = useState<OptionProps[]>();
 
   useEffect(() => {
@@ -79,6 +80,17 @@ export const Resume: FC<
       {
         title: "Возраст",
         info: ageStringify(age),
+      },
+      {
+        title: "Email",
+        info: (
+          <a
+            className={`link visited:text-[#A5B4C4] whitespace-nowrap`}
+            href={`mailto:${email}`}
+          >
+            {email}
+          </a>
+        ),
       },
       {
         title: "Опыт",

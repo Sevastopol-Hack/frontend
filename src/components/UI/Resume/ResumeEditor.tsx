@@ -29,6 +29,17 @@ export const ResumeEditor: FC<
         }
       />
       <Editable
+        placeholder="Email:"
+        value={editable?.email}
+        type="email"
+        onChange={(e) =>
+          onChange((prev) => ({
+            ...prev!,
+            email: e.target.value,
+          }))
+        }
+      />
+      <Editable
         placeholder="Возраст:"
         value={editable?.age}
         type="number"

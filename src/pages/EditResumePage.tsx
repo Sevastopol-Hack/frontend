@@ -11,6 +11,7 @@ const CreatePage = () => {
     fio: "Тестов Тест Тестович",
     age: 29,
     exp: 37,
+    email: "example@gmail.com",
     stack: ["HTML5", "CSS3", "JS", "JavaScript/JQuery"],
     jobs: [
       {
