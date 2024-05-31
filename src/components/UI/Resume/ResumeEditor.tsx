@@ -3,11 +3,11 @@ import { Editable } from "./Editable";
 import Selector from "../Selector/Selector";
 import { EditableJob } from "./Job";
 import { Dispatch, FC, SetStateAction } from "react";
-import { ResumeProps } from "./Resume";
+import { Resume } from "../../../API/ResumesService";
 
 export const ResumeEditor: FC<
-  ResumeProps & {
-    onChange?: Dispatch<SetStateAction<ResumeProps>>;
+  Resume & {
+    onChange?: Dispatch<SetStateAction<Resume>>;
   }
 > = ({ onChange, ...editable }) => {
   onChange ??= () => {};
@@ -52,12 +52,12 @@ export const ResumeEditor: FC<
       />
       <Editable
         placeholder="Опыт работы:"
-        value={editable?.exp}
+        value={editable?.experience}
         type="number"
         onChange={(e) =>
           onChange((prev) => ({
             ...prev!,
-            exp: parseInt(e.target.value),
+            experience: parseInt(e.target.value),
           }))
         }
       />

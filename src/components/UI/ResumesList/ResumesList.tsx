@@ -1,10 +1,7 @@
 import { FC, useState } from "react";
-import { LikeButton } from "../LikeButton/LikeButton";
 import { Table } from "../Table/Table";
 import { generatePath, Link } from "react-router-dom";
 import RoutePaths from "../../../router/Routes";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { Spinner } from "@material-tailwind/react";
 
 interface Resume {
   fio: string;
@@ -21,11 +18,11 @@ export const ResumesEditionList: FC<ResumesEditionList> = ({
   resumes,
   className,
 }) => {
+  console.log(resumes);
   return (
     <Table
       items={resumes.map((resume, index) => [
         <div className="flex flex-row gap-1.5">
-          <LikeButton className="self-center" />
           <span>{index + 1}</span>
         </div>,
         <Link

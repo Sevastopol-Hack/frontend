@@ -1,29 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Resume, ResumeProps } from "../components/UI/Resume/Resume";
-import { useNavigate } from "react-router-dom";
+import { generatePath, useNavigate, useParams } from "react-router-dom";
 import { ResumeEditor } from "../components/UI/Resume/ResumeEditor";
 import { Button } from "@material-tailwind/react";
 import RoutePaths from "../router/Routes";
-import { CompetenceList } from "../components/UI/Resume/Competence";
+import {
+  CompetenceList,
+  CompetenceProps,
+} from "../components/UI/Resume/Competence";
+import ResumesService, { Resume as ResumeSchema } from "../API/ResumesService";
 
-const CreatePage = () => {
-  const navigate = useNavigate();
+const ResumePage = () => {
+  const { id } = useParams();
 
-  const [info, setInfo] = useState<ResumeProps>({
-    fio: "Тестов Тест Тестович",
-    age: 29,
-    exp: 37,
-    email: "example@gmail.com",
-    stack: ["HTML5", "CSS3", "JS", "JavaScript/JQuery"],
-    jobs: [
-      {
-        name: "SkyEnglish",
-        post: "frontend разработчик",
-        from: 1473235200,
-        to: 1562489600,
-      },
-    ],
+  const [info, setInfo] = useState<ResumeSchema>({
+    age: 0,
+    email: "",
+    experience: 0,
+    fio: "",
+    jobs: [],
+    stack: [],
+    _id: "",
+    created_at: 0,
+    filename: "",
   });
+
+  const [competences, setCompetences] = useState<CompetenceProps[]>([]);
+
+  useEffect(() => {
+    ResumesService.get(id!).then(setInfo);
+    ResumesService.match(id!).then(setCompetences);
+  }, []);
 
   return (
     <div className="flex flex-col justify-left items-left mx-10">
@@ -33,17 +40,14 @@ const CreatePage = () => {
           buttons={
             <div className="flex flex-col gap-2">
               <Button
-                className="bg-[#13ADE7] mx-10 max-w-[200px] whitespace-nowrap"
-                onClick={() => {
-                  console.log("TEST");
-                }}
-              >
-                Добавить в избранное
-              </Button>
-              <Button
                 className="bg-[#A5B4C4] mx-10 max-w-[200px]"
                 onClick={() => {
-                  navigate(RoutePaths.EDIT_RESUME);
+                  window.open(
+                    generatePath(RoutePaths.EDIT_RESUME, {
+                      id: info._id,
+                    }),
+                    "_blank"
+                  );
                 }}
               >
                 Редактировать
@@ -53,17 +57,10 @@ const CreatePage = () => {
         />
         <div className="w-[2px] bg-blue-gray-100 hidden sm:hidden md:block lg:block xl:block" />
         <hr className="max-w-[500px] border border-blue-gray-100 -my-2.5 block sm:block md:hidden lg:hidden xl:hidden" />
-        <CompetenceList
-          competences={[
-            {
-              name: "Java Android developer",
-              percent: 52,
-            },
-          ]}
-        />
+        <CompetenceList competences={competences} />
       </div>
     </div>
   );
 };
 
-export default CreatePage;
+export default ResumePage;

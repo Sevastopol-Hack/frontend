@@ -19,14 +19,14 @@ const Option: FC<OptionProps> = ({ info, title }) => {
 export interface ResumeProps {
   fio: string;
   age: number;
-  exp: number;
+  experience: number;
   email: string;
   stack: string[];
   jobs: {
     name: string;
     post: string;
-    from: number;
-    to: number;
+    start: number;
+    end: number;
   }[];
 }
 
@@ -72,7 +72,7 @@ export const Resume: FC<
   ResumeProps & {
     buttons?: React.ReactNode;
   }
-> = ({ fio, age, exp, jobs, stack, buttons, email }) => {
+> = ({ fio, age, experience, jobs, stack, buttons, email }) => {
   const [options, setOptions] = useState<OptionProps[]>();
 
   useEffect(() => {
@@ -94,7 +94,7 @@ export const Resume: FC<
       },
       {
         title: "Опыт",
-        info: ageStringify(exp, true),
+        info: ageStringify(experience, true),
       },
       {
         title: "Стек",
@@ -107,7 +107,7 @@ export const Resume: FC<
         ),
       },
     ]);
-  }, [age, exp, stack]);
+  }, [age, experience, stack]);
 
   return (
     <div className="flex justify-left flex-col md:max-w-[300px] lg:max-w-[300px] xl:max-w-[300px]">

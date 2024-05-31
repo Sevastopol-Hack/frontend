@@ -2,12 +2,12 @@ import { Typography } from "@material-tailwind/react";
 import { FC } from "react";
 import { Button } from "react-day-picker";
 
-interface CompetenceProps {
-  name: string;
+export interface CompetenceProps {
+  title: string;
   percent: number;
 }
 
-const Competence: FC<CompetenceProps> = ({ name, percent }) => {
+const Competence: FC<CompetenceProps> = ({ title, percent }) => {
   const color =
     percent <= 50 ? "#A5B4C4" : percent <= 75 ? "#404040" : "#05AAE6";
 
@@ -19,7 +19,7 @@ const Competence: FC<CompetenceProps> = ({ name, percent }) => {
           background: color,
         }}
       >
-        {name}
+        {title}
       </span>
       <Typography variant="h4" className={`text-[${color}] font-medium`}>
         {percent}%

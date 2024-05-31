@@ -3,7 +3,7 @@ enum RoutePaths {
   SIGNUP = "/signup",
   LOGIN = "/login",
   EDIT_RESUME = "/resume/edit/:id",
-  RESUME = "/resume",
+  RESUME = "/resume/:id",
   VACANCIES = "/vacancies",
   CREATE_RESUME = "/resume/create",
 }

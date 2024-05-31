@@ -1,21 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Resume, ResumeProps } from "../components/UI/Resume/Resume";
 import { useNavigate, useParams } from "react-router-dom";
 import { ResumeEditor } from "../components/UI/Resume/ResumeEditor";
 import { Button } from "@material-tailwind/react";
+import ResumesService, { Resume as ResumeSchema } from "../API/ResumesService";
 
 const CreatePage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [info, setInfo] = useState<ResumeProps>({
+  const [info, setInfo] = useState<ResumeSchema>({
     age: 0,
     email: "",
-    exp: 0,
+    experience: 0,
     fio: "",
     jobs: [],
     stack: [],
+    _id: "",
+    created_at: 0,
+    filename: "",
   });
+
+  useEffect(() => {
+    ResumesService.get(id!).then(setInfo);
+  }, []);
 
   return (
     <div className="flex flex-col justify-left items-left mx-10">
@@ -27,7 +35,9 @@ const CreatePage = () => {
               <Button
                 className="bg-[#13ADE7] mx-10 max-w-[200px]"
                 onClick={() => {
-                  console.log("TEST");
+                  ResumesService.update(info).then(() => {
+                    window.close();
+                  });
                 }}
               >
                 Сохранить
@@ -35,7 +45,7 @@ const CreatePage = () => {
               <Button
                 className="bg-[#A5B4C4] mx-10 max-w-[200px]"
                 onClick={() => {
-                  navigate(-1);
+                  window.close();
                 }}
               >
                 Отменить

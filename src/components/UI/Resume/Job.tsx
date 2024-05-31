@@ -5,11 +5,11 @@ import { MonthSelector } from "../MonthSelector/MonthSelector";
 interface JobProps {
   name: string;
   post: string;
-  from: number;
-  to: number;
+  start: number;
+  end: number;
 }
 
-export const Job: FC<JobProps> = ({ name, post, from, to }) => {
+export const Job: FC<JobProps> = ({ name, post, start, end }) => {
   const dateFormatter = Intl.DateTimeFormat("ru", {
     month: "long",
     year: "numeric",
@@ -20,7 +20,8 @@ export const Job: FC<JobProps> = ({ name, post, from, to }) => {
       <span>{name}</span>
       <span>{post}</span>
       <span>
-        {dateFormatter.format(from * 1000)} - {dateFormatter.format(to * 1000)}
+        {dateFormatter.format(start * 1000)} -{" "}
+        {dateFormatter.format(end * 1000)}
       </span>
       <hr className="max-w-[200px] border border-blue-gray-100 my-2.5" />
     </div>
@@ -60,11 +61,11 @@ export const EditableJob: FC<JobEditorProps> = ({ onChange, value }) => {
       <div className="flex flex-row gap-2.5 whitespace-nowrap items-center">
         <span>Начало работы</span>
         <MonthSelector
-          time={value.from}
+          time={value.start}
           onChange={(time) => {
             onChange({
               ...value,
-              from: time,
+              start: time,
             });
           }}
         />
@@ -72,11 +73,11 @@ export const EditableJob: FC<JobEditorProps> = ({ onChange, value }) => {
       <div className="flex flex-row gap-2.5 whitespace-nowrap items-center mt-2">
         <span>Конец работы</span>
         <MonthSelector
-          time={value.to}
+          time={value.end}
           onChange={(time) => {
             onChange({
               ...value,
-              to: time,
+              end: time,
             });
           }}
         />

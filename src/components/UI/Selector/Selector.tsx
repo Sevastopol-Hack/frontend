@@ -1,6 +1,7 @@
 import { Button } from "@material-tailwind/react";
 import { FC, useEffect, useRef, useState } from "react";
 import Select, { MultiValue, MultiValueGenericProps } from "react-select";
+import StackService from "../../../API/StackService";
 
 type OptionType = {
   value: string;
@@ -26,20 +27,6 @@ const MultiValueContainer = ({
   );
 };
 
-const Stacks = [
-  "HTML5",
-  "CSS3",
-  "JS",
-  "JavaScript/JQuery",
-  "адаптивная вёрстка",
-  "создание HTML-страницы сайта на основе дизайн-макетов",
-  "вёрстка сайтов и шаблонов для CMS",
-  "привязка к пользовательскому интерфейсу скриптов, которые обеспечивают визуализацию и анимацию страниц сайта",
-  "обеспечение необходимого уровня пользовательского интерфейса (UI — User Interface) и опыта взаимодействия (UX — User Experience)",
-  "CSS-фреймворки",
-  "кросс-браузерная вёрстка",
-];
-
 interface Props {
   onOptionsChanged?: (options: string[]) => void;
   value?: string[];
@@ -47,7 +34,11 @@ interface Props {
 }
 
 const Selector: FC<Props> = ({ onOptionsChanged, value, className }) => {
-  const [stacks, setStacks] = useState<string[]>(Stacks);
+  const [stacks, setStacks] = useState<string[]>([]);
+
+  useEffect(() => {
+    StackService.get().then(setStacks);
+  }, []);
 
   const defaultOpts = (value || []).map((v) => ({
     value: v,
@@ -78,6 +69,7 @@ const Selector: FC<Props> = ({ onOptionsChanged, value, className }) => {
   };
 
   const handleAdd = (option: string) => {
+    StackService.create(option);
     const options = optsRef.current.concat({
       value: option,
       remove: () => handleRemove(option),
@@ -113,12 +105,14 @@ const Selector: FC<Props> = ({ onOptionsChanged, value, className }) => {
       noOptionsMessage={() => (
         <div className="flex flex-col">
           <span>Технология не найдена</span>
-          <Button
-            className="bg-[#A5B4C4] self-center py-2"
-            onClick={() => handleAdd(query)}
-          >
-            Добавить
-          </Button>
+          {query && (
+            <Button
+              className="bg-[#A5B4C4] self-center py-2"
+              onClick={() => handleAdd(query)}
+            >
+              Добавить
+            </Button>
+          )}
         </div>
       )}
       onInputChange={(value) => {
