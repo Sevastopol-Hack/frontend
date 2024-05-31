@@ -21,7 +21,9 @@ const Content: FC = () => {
         </Button>
         <Button
           className="bg-[#A5B4C4] px-10 -mb-5 md:mb-0 lg:mb-0 xl:mb-0"
-          onClick={() => {}}
+          onClick={() => {
+            navigate(RoutePaths.EDIT_RESUME);
+          }}
         >
           Редактировать
         </Button>

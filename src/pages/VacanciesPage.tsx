@@ -13,7 +13,7 @@ const Vacancy: FC<VacancyProps> = ({ name, stack, active }) => {
     <div
       className={`bg-[${
         active ? "#13ADE7" : "#A5B4C4"
-      }] rounded-xl relative cursor-pointer hover:scale-[1.025] transition-[.5s] max-w-[500px]`}
+      }] rounded-xl relative cursor-pointer hover:scale-[1.025] transition-[.5s] max-w-[500px] m-2.5`}
     >
       <div>
         <img src={active ? "/icons/layers.svg" : "/icons/snowflake.svg"} />

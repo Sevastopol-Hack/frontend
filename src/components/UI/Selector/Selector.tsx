@@ -1,3 +1,4 @@
+import { Button } from "@material-tailwind/react";
 import { FC, useEffect, useRef, useState } from "react";
 import Select, { MultiValue, MultiValueGenericProps } from "react-select";
 
@@ -46,6 +47,8 @@ interface Props {
 }
 
 const Selector: FC<Props> = ({ onOptionsChanged, value, className }) => {
+  const [stacks, setStacks] = useState<string[]>(Stacks);
+
   const defaultOpts = (value || []).map((v) => ({
     value: v,
     remove: () => handleRemove(v),
@@ -74,6 +77,20 @@ const Selector: FC<Props> = ({ onOptionsChanged, value, className }) => {
     setSelectedOptions(options);
   };
 
+  const handleAdd = (option: string) => {
+    const options = optsRef.current.concat({
+      value: option,
+      remove: () => handleRemove(option),
+    });
+
+    optsRef.current = options;
+    setSelectedOptions(options);
+    setStacks(stacks.concat(option));
+    setQuery("");
+  };
+
+  const [query, setQuery] = useState<string>("");
+
   return (
     <Select
       className={className}
@@ -93,7 +110,22 @@ const Selector: FC<Props> = ({ onOptionsChanged, value, className }) => {
       }}
       placeholder="Выберите технологии..."
       isSearchable
-      options={Stacks.map((option) => ({
+      noOptionsMessage={() => (
+        <div className="flex flex-col">
+          <span>Технология не найдена</span>
+          <Button
+            className="bg-[#A5B4C4] self-center py-2"
+            onClick={() => handleAdd(query)}
+          >
+            Добавить
+          </Button>
+        </div>
+      )}
+      onInputChange={(value) => {
+        setQuery(value);
+      }}
+      inputValue={query}
+      options={stacks.map((option) => ({
         value: option,
         label: option,
         remove: handleRemove,
