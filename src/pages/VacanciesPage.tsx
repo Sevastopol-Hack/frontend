@@ -1,5 +1,6 @@
-import { Button, Typography } from "@material-tailwind/react";
-import { FC } from "react";
+import { Button, Spinner, Typography } from "@material-tailwind/react";
+import { FC, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 interface VacancyProps {
   name: string;
@@ -12,7 +13,7 @@ const Vacancy: FC<VacancyProps> = ({ name, stack, active }) => {
     <div
       className={`bg-[${
         active ? "#13ADE7" : "#A5B4C4"
-      }] rounded-xl relative cursor-pointer mb-5 hover:scale-[1.025] transition-[.5s] max-w-[500px]`}
+      }] rounded-xl relative cursor-pointer hover:scale-[1.025] transition-[.5s] max-w-[500px]`}
     >
       <div>
         <img src={active ? "/icons/layers.svg" : "/icons/snowflake.svg"} />
@@ -32,6 +33,24 @@ const Vacancy: FC<VacancyProps> = ({ name, stack, active }) => {
 };
 
 const VacanciesPage = () => {
+  const [state, setState] = useState([
+    {
+      name: "Java Developer",
+      stack: ["HTML", "CSS", "JAVA", "JS"],
+      active: true,
+    },
+  ]);
+
+  const fetchMoreData = () => {
+    setState(
+      state.concat({
+        name: "Java Developer",
+        stack: ["HTML", "CSS", "JAVA", "JS"],
+        active: true,
+      })
+    );
+  };
+
   return (
     <div className="flex flex-col justify-left items-left mx-10">
       <p className="text-lg mt-5">Быстрые действия (вакансии)</p>
@@ -47,20 +66,19 @@ const VacanciesPage = () => {
 
       <p className="text-lg mt-5">Список вакансий</p>
       <hr className="border border-blue-gray-100 mt-2.5" />
-      <div className="columns-sm mt-2.5">
-        <Vacancy name="Java Developer" stack={["HTML", "CSS", "JAVA", "JS"]} />
-        <Vacancy
-          name="Java Developer"
-          stack={["HTML", "CSS", "JAVA", "JS"]}
-          active
-        />
-        <Vacancy name="Java Developer" stack={["HTML", "CSS", "JAVA", "JS"]} />
-        <Vacancy name="Java Developer" stack={["HTML", "CSS", "JAVA", "JS"]} />
-        <Vacancy name="Java Developer" stack={["HTML", "CSS", "JAVA", "JS"]} />
-        <Vacancy name="Java Developer" stack={["HTML", "CSS", "JAVA", "JS"]} />
-        <Vacancy name="Java Developer" stack={["HTML", "CSS", "JAVA", "JS"]} />
-        <Vacancy name="Java Developer" stack={["HTML", "CSS", "JAVA", "JS"]} />
-      </div>
+      <InfiniteScroll
+        dataLength={state.length}
+        next={fetchMoreData}
+        hasMore={true}
+        loader={<Spinner className="w-12 h-12 m-2.5 self-center" />}
+        className="!overflow-y-clip flex flex-col"
+      >
+        <div className="grid gap-5 mt-2.5 grid-cols-[repeat(auto-fit,minmax(300px,400px))]">
+          {state.map((i, index) => (
+            <Vacancy {...i} key={index} />
+          ))}
+        </div>
+      </InfiniteScroll>
     </div>
   );
 };
