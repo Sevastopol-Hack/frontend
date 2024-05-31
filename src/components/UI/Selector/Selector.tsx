@@ -45,10 +45,14 @@ const Selector: FC<Props> = ({ onOptionsChanged, value, className }) => {
     remove: () => handleRemove(v),
   }));
 
-  const optsRef = useRef<OptionType[]>(defaultOpts);
+  const optsRef = useRef<OptionType[]>([]);
 
-  const [selectedOptions, setSelectedOptions] =
-    useState<OptionType[]>(defaultOpts);
+  const [selectedOptions, setSelectedOptions] = useState<OptionType[]>([]);
+
+  useEffect(() => {
+    optsRef.current = defaultOpts;
+    setSelectedOptions(defaultOpts);
+  }, [stacks]);
 
   useEffect(() => {
     onOptionsChanged &&

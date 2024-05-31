@@ -19,6 +19,7 @@ const CreatePage = () => {
     _id: "",
     created_at: 0,
     filename: "",
+    percent: 0,
   });
 
   useEffect(() => {

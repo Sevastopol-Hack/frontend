@@ -17,6 +17,7 @@ export interface Resume {
     end: number;
   }[];
   filename: string;
+  percent: number;
 }
 
 export interface Summary {

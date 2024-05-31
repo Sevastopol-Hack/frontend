@@ -23,6 +23,7 @@ const ResumePage = () => {
     _id: "",
     created_at: 0,
     filename: "",
+    percent: 0,
   });
 
   const [competences, setCompetences] = useState<CompetenceProps[]>([]);

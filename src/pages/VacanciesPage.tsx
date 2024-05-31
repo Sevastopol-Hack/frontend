@@ -4,15 +4,26 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import VacanciesService, {
   Vacancy as VacancyModel,
 } from "../API/VacanciesService";
-import { useNavigate } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 import RoutePaths from "../router/Routes";
 
-const Vacancy: FC<VacancyModel> = ({ title, stack, is_close }) => {
+const Vacancy: FC<VacancyModel> = ({ title, stack, is_close, _id }) => {
   return (
     <div
       className={`bg-[${
         !is_close ? "#13ADE7" : "#A5B4C4"
       }] rounded-xl relative cursor-pointer hover:scale-[1.025] transition-[.5s] max-w-[500px] m-2.5`}
+      onClick={() => {
+        window.open(
+          generatePath(
+            is_close ? RoutePaths.EDIT_VACANCY : RoutePaths.VACANCY,
+            {
+              id: _id,
+            }
+          ),
+          "_blank"
+        );
+      }}
     >
       <div>
         <img src={!is_close ? "/icons/layers.svg" : "/icons/snowflake.svg"} />
