@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Resume, ResumeProps } from "../components/UI/Resume/Resume";
+import { Resume } from "../components/UI/Resume/Resume";
 import { generatePath, useNavigate, useParams } from "react-router-dom";
 import { ResumeEditor } from "../components/UI/Resume/ResumeEditor";
 import { Button } from "@material-tailwind/react";

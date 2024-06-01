@@ -2,7 +2,9 @@ import { Typography } from "@material-tailwind/react";
 import React, { FC, useEffect, useState } from "react";
 import { Job } from "./Job";
 import { ageStringify } from "../../../utils/ageStringify";
-import { Resume as ResumeModel } from "../../../API/ResumesService";
+import ResumesService, {
+  Resume as ResumeModel,
+} from "../../../API/ResumesService";
 
 interface OptionProps {
   title?: string;
@@ -24,6 +26,11 @@ export const Resume: FC<
   }
 > = ({ fio, age, experience, jobs, stack, buttons, email, filename }) => {
   const [options, setOptions] = useState<OptionProps[]>();
+  const [href, setHref] = useState<string>("");
+
+  useEffect(() => {
+    ResumesService.file(filename).then(setHref);
+  }, []);
 
   useEffect(() => {
     setOptions([
@@ -32,7 +39,7 @@ export const Resume: FC<
           <a
             className={`link link-hover visited:text-black text-[#13ADE7] whitespace-nowrap`}
             target="_blank"
-            href={filename}
+            href={href}
           >
             Скачать
           </a>

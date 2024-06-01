@@ -24,7 +24,7 @@ const CreateResumePage = () => {
       <hr className="max-w-[200px] border border-blue-gray-100 mt-2.5" />
       <FileDialog
         multiple
-        accept="application/msword, application/pdf"
+        accept="application/msword, application/pdf, application/rtf"
         inputClassName="w-full max-w-[400px]"
         onChange={(files) => files && setFiles(files)}
       />
