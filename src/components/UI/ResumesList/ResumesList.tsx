@@ -32,7 +32,7 @@ export const ResumesEditionList: FC<ResumesEditionList> = ({
             id: resume._id,
           })}
         >
-          {resume.fio}
+          {resume.fio || "Без имени"}
         </Link>,
         <a
           className={`link link-hover visited:text-[#A5B4C4] text-[#13ADE7] whitespace-nowrap`}

@@ -77,7 +77,7 @@ const VacancyPage = () => {
                 id: resume._id,
               })}
             >
-              {resume.fio}
+              {resume.fio || "Без имени"}
             </Link>,
             <span className={`text-[${color}]`}>{percent}</span>,
           ];
