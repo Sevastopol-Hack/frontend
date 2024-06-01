@@ -11,6 +11,7 @@ services:
       - "traefik.http.routers.biwork-web.service=biwork-web"
     networks:
       - traefik
+    ports: !reset []
 
 networks:
   traefik:
