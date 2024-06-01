@@ -81,10 +81,10 @@
     align-self: stretch;
     flex-direction: row;
     align-items: flex-start;
-    gap: 5px;
+    justify-content: space-between;
 }
 
-.inputs input {
+.inputs span {
     padding: 0px 0px 0px 5px;
     outline: none;
 }

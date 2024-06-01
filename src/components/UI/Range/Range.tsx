@@ -60,20 +60,8 @@ const Range: React.FC<{
   return (
     <div style={style} className={className}>
       <div className="inputs">
-        От
-        <input
-          readOnly
-          placeholder="От..."
-          value={ageStringify(a, true)}
-          style={{ height: "20px", marginTop: "2.5px" }}
-        />
-        До
-        <input
-          readOnly
-          placeholder="До..."
-          value={ageStringify(b, true)}
-          style={{ height: "20px", marginTop: "2.5px" }}
-        />
+        <span>От {ageStringify(a, true)}</span>
+        <span>До {ageStringify(b, true)}</span>
       </div>
       <div
         className="wrap"
