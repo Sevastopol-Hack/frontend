@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  api:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.biwork-web.rule=Host(`biwork.tech`)"
+      - "traefik.http.routers.biwork-web.entrypoints=http,https"
+      - "traefik.http.routers.biwork-web.tls.certresolver=myresolver"
+      - "traefik.http.services.biwork-web.loadbalancer.server.port=3000"
+      - "traefik.http.routers.biwork-web.service=biwork-web"
+    networks:
+      - traefik
+
+  api_database:
+      networks:
+      - traefik
+  mongodb_database:
+      networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
