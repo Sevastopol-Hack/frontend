@@ -83,7 +83,7 @@ const VacanciesPage = () => {
       <hr className="max-w-[200px] border border-blue-gray-100 mt-2.5" />
       <div className="flex justify-left items-center gap-10 flex-row mt-6">
         <Button
-          className="bg-[#13ADE7] px-10 -mb-5 md:mb-0 lg:mb-0 xl:mb-0"
+          className="bg-[#13ADE7] px-10"
           onClick={() => {
             window.open(RoutePaths.CREATE_VACANCY, "_blank");
           }}
