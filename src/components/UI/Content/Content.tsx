@@ -63,7 +63,6 @@ export const Content = () => {
           Создать
         </Button>
       </div>
-      <p className="text-lg mt-5">Список резюме</p>
       <hr className="max-w-[200px] border border-blue-gray-100 mt-2.5" />
       <p className="text-lg mt-5 mb-1">Опыт</p>
       <Range
@@ -89,6 +88,7 @@ export const Content = () => {
           });
         }}
       />
+      <p className="text-lg mt-5">Список резюме</p>
       <hr className="max-w-[200px] border border-blue-gray-100 mt-2.5" />
 
       <InfiniteScroll

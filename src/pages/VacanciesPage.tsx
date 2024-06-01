@@ -92,8 +92,8 @@ const VacanciesPage = () => {
         </Button>
       </div>
 
-      <p className="text-lg mt-5">Список вакансий</p>
       <hr className="max-w-[200px] border border-blue-gray-100 mt-2.5" />
+      <p className="text-lg mt-5">Поиск:</p>
       <Input
         size="lg"
         placeholder={"Название"}
@@ -109,6 +109,7 @@ const VacanciesPage = () => {
           className: "before:content-none after:content-none",
         }}
       />
+      <p className="text-lg mt-5">Список вакансий</p>
       <hr className="max-w-[200px] border border-blue-gray-100 mt-5" />
       <InfiniteScroll
         dataLength={resumes.length}
