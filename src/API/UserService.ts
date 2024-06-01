@@ -16,7 +16,10 @@ export interface LoginRequest {
 }
 
 export interface User {
-  role: string;
+  role: Role;
+  name: string;
+  surname: string;
+  username: string;
 }
 
 export default class UserService {

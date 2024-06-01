@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import Link from "../Link/Link";
 import RoutePaths from "../../../router/Routes";
+import { useSelf } from "../../../states/self";
 
 interface LinksProps {
   className?: string;
@@ -14,19 +15,21 @@ interface LinkInfo {
 }
 const Links: FC<LinksProps> = ({ className }) => {
   const navigate = useNavigate();
+  const { user } = useSelf();
 
   const LINKS: LinkInfo[] = [
     {
-      title: "Инструкция",
-      href: "/",
-    },
-    {
       title: "Вакансии",
       href: RoutePaths.VACANCIES,
+      disabled: user?.role === "recruiter",
     },
     {
       title: "Резюме",
       href: "/",
+    },
+    {
+      title: "Профиль",
+      href: RoutePaths.PROFILE,
     },
   ];
 

@@ -1,15 +1,14 @@
 .wrap {
     display: flex;
     --dif: calc(var(--max) - var(--min));
-    --bg: red;
-    --fg: blue;
+    --bg: #f2f2f2;
+    --fg: #05AAE6;
     display: grid !important;
     grid-template: repeat(2, max-content) 20px/ 1fr 1fr;
     overflow: hidden;
     position: relative;
     margin: 1em auto;
     width: -webkit-fill-available;
-    background: linear-gradient(0deg, var(--gradient-stop) 20px, transparent 0);
     border-radius: 3px;
 }
 
@@ -82,11 +81,12 @@
     align-self: stretch;
     flex-direction: row;
     align-items: flex-start;
-    gap: 15px;
+    gap: 5px;
 }
 
 .inputs input {
-    padding: 0px 0px 0px 10px;
+    padding: 0px 0px 0px 5px;
+    outline: none;
 }
 
 .inputs > div {

@@ -1,5 +1,6 @@
 import { CSSProperties, useEffect, useState } from "react";
 import "./Range.css";
+import { ageStringify } from "../../../utils/ageStringify";
 
 declare module "react" {
   interface CSSProperties {
@@ -15,7 +16,8 @@ const Range: React.FC<{
   from?: number;
   to?: number;
   style?: CSSProperties;
-}> = ({ onChange, max, from, to, min, step, style }) => {
+  className?: string;
+}> = ({ onChange, max, from, to, min, step, style, className }) => {
   const [a, setA] = useState(min);
   const [b, setB] = useState(max);
 
@@ -50,24 +52,26 @@ const Range: React.FC<{
   temp = Math.round((b || max) / step) * step;
   const scrollB = temp < a ? max : temp;
 
-  if (onChange && min <= scrollA && scrollA < scrollB && scrollB <= max)
-    onChange(scrollA, scrollB);
+  useEffect(() => {
+    if (onChange && min <= scrollA && scrollA < scrollB && scrollB <= max)
+      onChange(scrollA, scrollB);
+  }, [scrollA, scrollB]);
 
   return (
-    <div style={style}>
+    <div style={style} className={className}>
       <div className="inputs">
+        От
         <input
-          type="number"
+          readOnly
           placeholder="От..."
-          value={a}
-          onChange={(e) => setA(e.target.valueAsNumber)}
+          value={ageStringify(a, true)}
           style={{ height: "20px", marginTop: "2.5px" }}
         />
+        До
         <input
-          type="number"
+          readOnly
           placeholder="До..."
-          value={b}
-          onChange={(e) => setB(e.target.valueAsNumber)}
+          value={ageStringify(b, true)}
           style={{ height: "20px", marginTop: "2.5px" }}
         />
       </div>

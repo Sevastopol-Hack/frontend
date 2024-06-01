@@ -1,6 +1,6 @@
-import { Typography } from "@material-tailwind/react";
+import { Button, Typography } from "@material-tailwind/react";
 import { FC } from "react";
-import { Button } from "react-day-picker";
+import { exportCompetences } from "../../../utils/csvExport";
 
 export interface CompetenceProps {
   title: string;
@@ -22,7 +22,7 @@ const Competence: FC<CompetenceProps> = ({ title, percent }) => {
         {title}
       </span>
       <Typography variant="h4" className={`text-[${color}] font-medium`}>
-        {percent}%
+        {percent}
       </Typography>
     </div>
   );
@@ -37,6 +37,15 @@ export const CompetenceList: FC<{
         <Typography variant="h3" className="font-medium">
           Профиль компетенций
         </Typography>
+
+        <Button
+          className="bg-[#A5B4C4] mx-5 max-w-[200px] py-2"
+          onClick={() => {
+            competences && exportCompetences(competences);
+          }}
+        >
+          Выгрузить
+        </Button>
       </div>
       <hr className="max-w-[500px] border border-blue-gray-100 my-2.5" />
       <div className="flex flex-col gap-2.5">

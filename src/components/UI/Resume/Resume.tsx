@@ -1,6 +1,7 @@
 import { Typography } from "@material-tailwind/react";
 import React, { FC, useEffect, useState } from "react";
 import { Job } from "./Job";
+import { ageStringify } from "../../../utils/ageStringify";
 
 interface OptionProps {
   title: string;
@@ -30,44 +31,6 @@ export interface ResumeProps {
   }[];
 }
 
-const getSuffix = (count: number, variants: string[]) => {
-  if (count >= 5 && count <= 20) {
-    return variants[0];
-  } else {
-    count = count % 10;
-    if (count == 1) {
-      return variants[1];
-    } else if (count >= 2 && count <= 4) {
-      return variants[2];
-    } else {
-      return variants[0];
-    }
-  }
-};
-
-const yearsVariants = ["лет", "год", "года"];
-const monthsVariants = ["месяцев", "месяц", "месяца"];
-
-const ageStringify = (age: number, month?: boolean) => {
-  const months = age % 12;
-  if (month) {
-    age = Math.floor(age / 12);
-    const count = age % 100;
-
-    if (months) {
-      return `${age} ${getSuffix(count, yearsVariants)} ${months} ${getSuffix(
-        months,
-        monthsVariants
-      )}`;
-    } else {
-      return `${age} ${getSuffix(count, yearsVariants)}`;
-    }
-  } else {
-    const count = age % 100;
-    return `${age} ${getSuffix(count, yearsVariants)}`;
-  }
-};
-
 export const Resume: FC<
   ResumeProps & {
     buttons?: React.ReactNode;
@@ -84,10 +47,7 @@ export const Resume: FC<
       {
         title: "Email",
         info: (
-          <a
-            className={`link visited:text-[#A5B4C4] whitespace-nowrap`}
-            href={`mailto:${email}`}
-          >
+          <a className={`link visited:text-[#A5B4C4]`} href={`mailto:${email}`}>
             {email}
           </a>
         ),

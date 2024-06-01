@@ -10,7 +10,7 @@ export default class StackService {
   }
 
   public static async create(title: string): Promise<void> {
-    await axios.post(this.API + `/stack`, {
+    await axios.post(this.API + `/stack/`, {
       title,
     });
   }

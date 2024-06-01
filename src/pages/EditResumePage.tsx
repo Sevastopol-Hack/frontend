@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ResumeEditor } from "../components/UI/Resume/ResumeEditor";
 import { Button } from "@material-tailwind/react";
 import ResumesService, { Resume as ResumeSchema } from "../API/ResumesService";
+import { exportResume } from "../utils/csvExport";
 
 const CreatePage = () => {
   const navigate = useNavigate();
@@ -50,6 +51,14 @@ const CreatePage = () => {
                 }}
               >
                 Отменить
+              </Button>
+              <Button
+                className="bg-[#A5B4C4] mx-10 max-w-[200px]"
+                onClick={() => {
+                  exportResume(info);
+                }}
+              >
+                Выгрузить
               </Button>
             </div>
           }

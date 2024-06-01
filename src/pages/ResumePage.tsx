@@ -9,6 +9,7 @@ import {
   CompetenceProps,
 } from "../components/UI/Resume/Competence";
 import ResumesService, { Resume as ResumeSchema } from "../API/ResumesService";
+import { exportResume } from "../utils/csvExport";
 
 const ResumePage = () => {
   const { id } = useParams();
@@ -41,7 +42,7 @@ const ResumePage = () => {
           buttons={
             <div className="flex flex-col gap-2">
               <Button
-                className="bg-[#A5B4C4] mx-10 max-w-[200px]"
+                className="bg-[#13ADE7] mx-10 max-w-[200px]"
                 onClick={() => {
                   window.open(
                     generatePath(RoutePaths.EDIT_RESUME, {
@@ -52,6 +53,14 @@ const ResumePage = () => {
                 }}
               >
                 Редактировать
+              </Button>
+              <Button
+                className="bg-[#A5B4C4] mx-10 max-w-[200px]"
+                onClick={() => {
+                  exportResume(info);
+                }}
+              >
+                Выгрузить
               </Button>
             </div>
           }

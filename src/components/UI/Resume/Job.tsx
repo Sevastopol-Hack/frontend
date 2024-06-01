@@ -15,6 +15,14 @@ export const Job: FC<JobProps> = ({ name, post, start, end }) => {
     year: "numeric",
   });
 
+  if (!start) {
+    start = Date.now() / 1000;
+  }
+
+  if (!end) {
+    end = Date.now() / 1000;
+  }
+
   return (
     <div className="flex flex-col gap-1">
       <span>{name}</span>
@@ -35,6 +43,14 @@ interface JobEditorProps {
 
 export const EditableJob: FC<JobEditorProps> = ({ onChange, value }) => {
   onChange ??= () => {};
+
+  if (!value.start) {
+    value.start = Date.now() / 1000;
+  }
+
+  if (!value.end) {
+    value.end = Date.now() / 1000;
+  }
 
   return (
     <div className="flex flex-col gap-1">

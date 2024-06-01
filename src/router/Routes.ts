@@ -9,6 +9,7 @@ enum RoutePaths {
   CREATE_VACANCY = "/vacancy/create",
   EDIT_VACANCY = "/vacancy/edit/:id",
   VACANCY = "/vacancy/:id",
+  PROFILE = "/profile",
 }
 
 export default RoutePaths;

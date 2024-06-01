@@ -37,7 +37,9 @@ const Selector: FC<Props> = ({ onOptionsChanged, value, className }) => {
   const [stacks, setStacks] = useState<string[]>([]);
 
   useEffect(() => {
-    StackService.get().then(setStacks);
+    StackService.get().then((stacks) => {
+      setStacks(stacks.concat(value || []));
+    });
   }, []);
 
   const defaultOpts = (value || []).map((v) => ({

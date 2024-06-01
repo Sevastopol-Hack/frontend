@@ -1,4 +1,4 @@
-import { Button, Spinner, Typography } from "@material-tailwind/react";
+import { Button, Input, Spinner, Typography } from "@material-tailwind/react";
 import { FC, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import VacanciesService, {
@@ -6,6 +6,7 @@ import VacanciesService, {
 } from "../API/VacanciesService";
 import { generatePath, useNavigate } from "react-router-dom";
 import RoutePaths from "../router/Routes";
+import { useDebounce } from "../hooks/useDebounce";
 
 const Vacancy: FC<VacancyModel> = ({ title, stack, is_close, _id }) => {
   return (
@@ -42,25 +43,39 @@ const Vacancy: FC<VacancyModel> = ({ title, stack, is_close, _id }) => {
   );
 };
 
+interface Query {
+  query: string;
+}
+
 const VacanciesPage = () => {
-  const navigate = useNavigate();
   const [resumes, setResumes] = useState<VacancyModel[]>([]);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
-  const fetchMoreData = async () => {
+  const [query, setQuery] = useState<Query>({
+    query: "",
+  });
+
+  const fetchMoreData = async (reset?: boolean) => {
     const data = await VacanciesService.search({
+      ...query,
       limit: 10,
-      skip: resumes.length,
-      query: "",
+      skip: reset ? 0 : resumes.length,
     });
 
     setHasMore(data.length === 10);
-    setResumes(resumes.concat(data));
+    setResumes(reset ? data : resumes.concat(data));
   };
 
   useEffect(() => {
-    fetchMoreData();
-  }, []);
+    fetchMoreData(true);
+  }, [query]);
+
+  const setValue = useDebounce((current: Partial<Query>) => {
+    setQuery((prev) => ({
+      ...prev,
+      ...current,
+    }));
+  }, 1000);
 
   return (
     <div className="flex flex-col justify-left items-left mx-10">
@@ -78,7 +93,23 @@ const VacanciesPage = () => {
       </div>
 
       <p className="text-lg mt-5">Список вакансий</p>
-      <hr className="border border-blue-gray-100 mt-2.5" />
+      <hr className="max-w-[200px] border border-blue-gray-100 mt-2.5" />
+      <Input
+        size="lg"
+        placeholder={"Название"}
+        defaultValue={query.query}
+        crossOrigin={""}
+        className={`!border-t-blue-gray-200 focus:!border-t-gray-900 max-h-10 max-w-[400px] mt-2.5`}
+        onChange={(e) => {
+          setValue({
+            query: e.target.value,
+          });
+        }}
+        labelProps={{
+          className: "before:content-none after:content-none",
+        }}
+      />
+      <hr className="max-w-[200px] border border-blue-gray-100 mt-5" />
       <InfiniteScroll
         dataLength={resumes.length}
         next={fetchMoreData}
