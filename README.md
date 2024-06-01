@@ -28,4 +28,6 @@
 export const MAIN_API = "http://localhost:8078";
 ```
 
-2. docker compose up
+2. ```sh
+   docker compose up
+   ```
