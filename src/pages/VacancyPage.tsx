@@ -30,7 +30,7 @@ const VacancyPage = () => {
           {vacancy.title}
         </Typography>
         <Button
-          className="bg-[#A5B4C4] mx-10 max-w-[200px] py-0"
+          className="bg-[#A5B4C4] mx-5 max-w-[200px] py-0"
           onClick={() => {
             window.open(
               generatePath(RoutePaths.EDIT_VACANCY, {
@@ -63,32 +63,34 @@ const VacancyPage = () => {
       <Typography variant="h5" className="text-[#A5B4C4] mt-2.5">
         Кандидаты
       </Typography>
-      <Table
-        items={resumes.map(({ percent, ...resume }, index) => {
-          const color =
-            percent <= 50 ? "#A5B4C4" : percent <= 75 ? "#404040" : "#05AAE6";
-          return {
-            elements: [
-              <div className="flex flex-row gap-1.5">
-                <span>{index + 1}</span>
-              </div>,
-              <Link
-                className={`link link-hover visited:text-black text-[#13ADE7] whitespace-nowrap`}
-                target="_blank"
-                to={generatePath(RoutePaths.RESUME, {
-                  id: resume._id,
-                })}
-              >
-                {resume.fio || "Без имени"}
-              </Link>,
-              <span className={`text-[${color}]`}>{percent}</span>,
-            ],
-            valid: isValid(resume),
-          };
-        })}
-        headers={["Номер", "ФИО", "Баллы"]}
-        className="max-w-[600px] mt-2.5"
-      />
+      <div className="overflow-auto">
+        <Table
+          items={resumes.map(({ percent, ...resume }, index) => {
+            const color =
+              percent <= 50 ? "#A5B4C4" : percent <= 75 ? "#404040" : "#05AAE6";
+            return {
+              elements: [
+                <div className="flex flex-row gap-1.5">
+                  <span>{index + 1}</span>
+                </div>,
+                <Link
+                  className={`link link-hover visited:text-black text-[#13ADE7] whitespace-nowrap`}
+                  target="_blank"
+                  to={generatePath(RoutePaths.RESUME, {
+                    id: resume._id,
+                  })}
+                >
+                  {resume.fio || "Без имени"}
+                </Link>,
+                <span className={`text-[${color}]`}>{percent}</span>,
+              ],
+              valid: isValid(resume),
+            };
+          })}
+          headers={["Номер", "ФИО", "Баллы"]}
+          className="max-w-[600px] mt-2.5"
+        />
+      </div>
     </div>
   );
 };

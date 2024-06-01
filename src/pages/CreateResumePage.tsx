@@ -25,7 +25,7 @@ const CreateResumePage = () => {
       <FileDialog
         multiple
         accept="application/msword, application/pdf"
-        inputClassName="min-w-[400px]"
+        inputClassName="w-full max-w-[400px]"
         onChange={(files) => files && setFiles(files)}
       />
       <Button
