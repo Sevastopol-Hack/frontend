@@ -2,44 +2,42 @@ import { Typography } from "@material-tailwind/react";
 import React, { FC, useEffect, useState } from "react";
 import { Job } from "./Job";
 import { ageStringify } from "../../../utils/ageStringify";
+import { Resume as ResumeModel } from "../../../API/ResumesService";
 
 interface OptionProps {
-  title: string;
+  title?: string;
   info: React.JSX.Element | string;
 }
 
 const Option: FC<OptionProps> = ({ info, title }) => {
   return (
     <div className="flex flex-row gap-2.5">
-      <span className="text-[#05AAE6]">{title}</span>
+      {title && <span className="text-[#05AAE6]">{title}</span>}
       <span>{info}</span>
     </div>
   );
 };
 
-export interface ResumeProps {
-  fio: string;
-  age: number;
-  experience: number;
-  email: string;
-  stack: string[];
-  jobs: {
-    name: string;
-    post: string;
-    start: number;
-    end: number;
-  }[];
-}
-
 export const Resume: FC<
-  ResumeProps & {
+  ResumeModel & {
     buttons?: React.ReactNode;
   }
-> = ({ fio, age, experience, jobs, stack, buttons, email }) => {
+> = ({ fio, age, experience, jobs, stack, buttons, email, filename }) => {
   const [options, setOptions] = useState<OptionProps[]>();
 
   useEffect(() => {
     setOptions([
+      {
+        info: (
+          <a
+            className={`link link-hover visited:text-black text-[#13ADE7] whitespace-nowrap`}
+            target="_blank"
+            href={filename}
+          >
+            Скачать
+          </a>
+        ),
+      },
       {
         title: "Возраст",
         info: ageStringify(age),
@@ -47,7 +45,7 @@ export const Resume: FC<
       {
         title: "Email",
         info: (
-          <a className={`link visited:text-[#A5B4C4]`} href={`mailto:${email}`}>
+          <a className={`link visited:text-black`} href={`mailto:${email}`}>
             {email}
           </a>
         ),

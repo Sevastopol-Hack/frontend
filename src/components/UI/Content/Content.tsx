@@ -8,6 +8,7 @@ import RoutePaths from "../../../router/Routes";
 import Range from "../Range/Range";
 import Selector from "../Selector/Selector";
 import { Table } from "../Table/Table";
+import { isValid } from "../../../utils/resumeValidity";
 
 interface Query {
   experience_from: number;
@@ -99,27 +100,30 @@ export const Content = () => {
         className="!overflow-y-clip flex flex-col max-w-[500px] mt-2.5"
       >
         <Table
-          items={resumes.map((resume, index) => [
-            <div className="flex flex-row gap-1.5">
-              <span>{index + 1}</span>
-            </div>,
-            <Link
-              className={`link link-hover visited:text-[#A5B4C4] text-[#13ADE7] whitespace-nowrap`}
-              target="_blank"
-              to={generatePath(RoutePaths.RESUME, {
-                id: resume._id,
-              })}
-            >
-              {resume.fio || "Без имени"}
-            </Link>,
-            <a
-              className={`link link-hover visited:text-[#A5B4C4] text-[#13ADE7] whitespace-nowrap`}
-              target="_blank"
-              href={resume.filename}
-            >
-              скачать
-            </a>,
-          ])}
+          items={resumes.map((resume, index) => ({
+            elements: [
+              <div className="flex flex-row gap-1.5">
+                <span>{index + 1}</span>
+              </div>,
+              <Link
+                className={`link link-hover visited:text-black text-[#13ADE7] whitespace-nowrap`}
+                target="_blank"
+                to={generatePath(RoutePaths.RESUME, {
+                  id: resume._id,
+                })}
+              >
+                {resume.fio || "Без имени"}
+              </Link>,
+              <a
+                className={`link link-hover visited:text-black text-[#13ADE7] whitespace-nowrap`}
+                target="_blank"
+                href={resume.filename}
+              >
+                скачать
+              </a>,
+            ],
+            valid: isValid(resume),
+          }))}
           headers={["Номер", "ФИО", "Резюме"]}
         />
       </InfiniteScroll>

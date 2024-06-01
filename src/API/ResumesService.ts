@@ -59,7 +59,9 @@ export default class ResumesService {
 
   public static async get(id: string): Promise<Resume> {
     const response = await axios.get(this.API + `/resume/${id}`);
-    return response.data;
+    const data: Resume = response.data;
+    data.filename = await this.file(data.filename);
+    return data;
   }
 
   public static async update(resume: Resume): Promise<void> {

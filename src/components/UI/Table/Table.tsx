@@ -2,7 +2,10 @@ import React, { FC } from "react";
 
 interface TableProps {
   headers: string[];
-  items: React.ReactNode[][];
+  items: {
+    elements: React.ReactNode[];
+    valid?: boolean;
+  }[];
   className?: string;
 }
 
@@ -19,15 +22,24 @@ export const Table: FC<TableProps> = ({ headers, items, className }) => {
         </tr>
       </thead>
       <tbody>
-        {items.map((row, index) => (
-          <tr key={index} className={index % 2 ? "" : "bg-[#F2F2F2]"}>
-            {row.map((col, index) => (
-              <td key={index} className="px-2.5 py-1.5 text-center">
-                <div className="inline-block">{col}</div>
-              </td>
-            ))}
-          </tr>
-        ))}
+        {items.map((row, index) => {
+          console.log(row);
+          const color = row.valid ? (index % 2 ? "" : "#F2F2F2") : "#FFE6E6";
+          return (
+            <tr
+              key={index}
+              style={{
+                background: color,
+              }}
+            >
+              {row.elements.map((col, index) => (
+                <td key={index} className="px-2.5 py-1.5 text-center">
+                  <div className="inline-block">{col}</div>
+                </td>
+              ))}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
