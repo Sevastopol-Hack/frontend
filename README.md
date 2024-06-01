@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Библиотеки:
+```json
+"@heroicons/react": "^2.1.3",
+"@material-tailwind/react": "^2.1.9",
+"autoprefixer": "^10.4.19",
+"axios": "^1.6.8",
+"daisyui": "^4.10.2",
+"date-fns": "^3.6.0",
+"moment": "^2.30.1",
+"postcss": "^8.4.38",
+"react": "^18.3.1",
+"react-day-picker": "^8.10.1",
+"react-dom": "^18.3.1",
+"react-infinite-scroll-component": "^6.1.0",
+"react-lite-month-picker": "^1.2.18",
+"react-router-dom": "^6.23.0",
+"react-select": "^5.8.0",
+"sass": "^1.75.0",
+"tailwindcss": "^3.4.3",
+"tw-elements-react": "^1.0.0-alpha2",
+"zustand": "^4.5.2"
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Запуск на localhost:
+1. В `src/config.ts` изменить на:
+
+```ts
+export const MAIN_API = "http://localhost:8078";
+```
+
+2. docker compose up
